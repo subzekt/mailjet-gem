@@ -165,7 +165,13 @@ class Mailjet::APIMailer
       else
         ccs = []
         mail[:cc].each do |cc|
-          ccs << {:Email=> cc.address, :Name=>cc.display_name}
+          base_cc = {
+            :Email=> cc.address
+          }
+          if (cc.display_name)
+            base_cc[:Name] = cc.display_name
+          end
+          ccs << base_cc
         end
       end
     end
